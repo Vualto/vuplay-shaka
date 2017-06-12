@@ -1,0 +1,30 @@
+{
+  "name": "vuplay-shaka",
+  "version": "1.0.0",
+  "description": "A demo repo on how to use vudrm with Google's Shaka player.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vualto/vuplay-shaka.git"
+  },
+  "keywords": [
+    "vuplay",
+    "vudrm",
+    "google",
+    "shaka",
+    "vualto",
+    "widevine",
+    "playready",
+    "mpeg-dash",
+    "dash"
+  ],
+  "author": "Robert Mitchell <robert.mitchell@vualto.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vualto/vuplay-shaka/issues"
+  },
+  "homepage": "https://github.com/Vualto/vuplay-shaka#readme"
+}
