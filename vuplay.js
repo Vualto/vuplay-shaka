@@ -9,22 +9,20 @@
     // Set polyfills required by shaka
     shaka.polyfill.installAll();
     if (shaka.Player.isBrowserSupported()) {
-        initPlayer();
+        // setup the shaka player and attach an error event listener
+        var video = document.getElementById('video');
+        var player = new shaka.Player(video);
+        player.addEventListener('error', onErrorEvent);
+
+        // load the mpeg-dash stream into the shaka player
+        player.load(mpegdashStreamUrl).then(function () {
+            console.log("The stream has now been loaded!");
+        }).catch(onError);
+
     } else {
         console.error("This browser does not have the minimum set of APIs needed for shaka!");
-        return;
     }
-
-    // setup the shaka player and attach an error event listener
-    var video = document.getElementById('video');
-    var player = new shaka.Player(video);
-    player.addEventListener('error', onErrorEvent);
-
-    // load the mpeg-dash stream into the shaka player
-    player.load(mpegdashStreamUrl).then(function () {
-        console.log("The stream has now been loaded!");
-    }).catch(onError);
-});
+})();
 
 function onErrorEvent(event) {
     // Extract the shaka.util.Error object from the event.

@@ -1,5 +1,8 @@
 module.exports = function (grunt) {
-    var shakaPlayerUrl = "";
+    var shakaPlayerUrls = {
+        debug: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.3/shaka-player.compiled.debug.js",
+        production: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.3/shaka-player.compiled.js"
+    };
 
     grunt.initConfig({
         package: grunt.file.readJSON("package.json"),
@@ -45,7 +48,7 @@ module.exports = function (grunt) {
                     replacements: [
                         {
                             pattern: "{shaka}",
-                            replacement: shakaPlayerUrl
+                            replacement: grunt.option("debug") ? shakaPlayerUrls.debug : shakaPlayerUrls.production
                         },
                         {
                             pattern: "{vuplayjs}",
