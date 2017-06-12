@@ -14,6 +14,17 @@
         var player = new shaka.Player(video);
         player.addEventListener('error', onErrorEvent);
 
+        // configure the DRM license servers
+        var playReadyLaURL = "https://playready-license.drm.technology/rightsmanager.asmx?token=" + encodeURIComponent(vudrmToken)
+        player.configure({
+            drm: {
+                servers: {
+                    "com.widevine.alpha": "https://widevine-proxy.drm.technology/proxy",
+                    "com.microsoft.playready": playReadyLaURL
+                }
+            }
+        })
+
         // load the mpeg-dash stream into the shaka player
         player.load(mpegdashStreamUrl).then(function () {
             console.log("The stream has now been loaded!");
