@@ -1,14 +1,17 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     var shakaPlayerUrls = {
-        debug: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.3/shaka-player.compiled.debug.js",
-        production: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.3/shaka-player.compiled.js"
+        debug:
+            // "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.6/shaka-player.compiled.debug.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.6/shaka-player.compiled.js",
+        production:
+            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.6/shaka-player.compiled.js"
     };
 
     grunt.initConfig({
         package: grunt.file.readJSON("package.json"),
 
         clean: ["dist/*"],
-        
+
         copy: {
             all: {
                 expand: true,
@@ -17,17 +20,15 @@ module.exports = function (grunt) {
                 flatten: true
             }
         },
-        
+
         concat: {
             options: {},
             dist: {
-                src: [
-                    "vuplay.js"
-                ],
+                src: ["vuplay.js"],
                 dest: "dist/vuplay.js"
             }
         },
-        
+
         uglify: {
             js: {
                 files: {
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
                 }
             }
         },
-        
+
         "string-replace": {
             dist: {
                 files: [
@@ -48,11 +49,15 @@ module.exports = function (grunt) {
                     replacements: [
                         {
                             pattern: "{shaka}",
-                            replacement: grunt.option("debug") ? shakaPlayerUrls.debug : shakaPlayerUrls.production
+                            replacement: grunt.option("debug")
+                                ? shakaPlayerUrls.debug
+                                : shakaPlayerUrls.production
                         },
                         {
                             pattern: "{vuplayjs}",
-                            replacement: grunt.option("debug") ? "vuplay.js" : "vuplay.min.js"
+                            replacement: grunt.option("debug")
+                                ? "vuplay.js"
+                                : "vuplay.min.js"
                         }
                     ]
                 }
@@ -79,6 +84,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-string-replace");
     grunt.loadNpmTasks("grunt-contrib-connect");
 
-    grunt.registerTask("build", ["clean", "copy", "concat", "uglify", "string-replace"]);
+    grunt.registerTask("build", [
+        "clean",
+        "copy",
+        "concat",
+        "uglify",
+        "string-replace"
+    ]);
     grunt.registerTask("serve", ["build", "connect"]);
-}
+};

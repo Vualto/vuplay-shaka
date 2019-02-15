@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Demo vudrm with Shaka</title>
-  </head>
-  <body>
-    <video id="video" width="640" controls autoplay></video>
-    <script src="{shaka}"></script>
-    <script src="{vuplayjs}"></script>
-  </body>
+    <head>
+        <!-- Shaka Player compiled library: -->
+        <script src="{shaka}"></script>
+        <!-- Your application source: -->
+        <script src="{vuplayjs}"></script>
+    </head>
+    <body>
+        <video
+            id="video"
+            width="640"
+            poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
+            controls
+            autoplay
+        ></video>
+
+        <div>
+            <div>
+                <p style="font-weight: bold">Current UTC (ISO8601):</p>
+                <p id="utc-iso"></p>
+            </div>
+            <div>
+                <p style="font-weight: bold">Current elapsed time (seconds):</p>
+                <p id="elapsed-seconds"></p>
+            </div>
+        </div>
+    </body>
 </html>

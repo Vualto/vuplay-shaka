@@ -1,69 +1,45 @@
-(function () {
+// myapp.js
 
-    // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
+var manifestUri =
+    "https://d3s2m20z4djjuz.cloudfront.net/content/vod/bedca948-cbe0-19e0-cb89-57ff6f87569a/bedca948-cbe0-19e0-cb89-57ff6f87569a_nodrm_8ed25cc9-09a3-446a-a82a-deb6ea329e34.ism/.mpd";
 
-    // Please login to https://admin.drm.technology to generate a vudrm token.
-    var vudrmToken = "<vudrm-token>";
-
-    // Set polyfills required by shaka
+function initApp() {
+    // Install built-in polyfills to patch browser incompatibilities.
     shaka.polyfill.installAll();
+
+    // Check to see if the browser supports the basic APIs Shaka needs.
     if (shaka.Player.isBrowserSupported()) {
-        // setup the shaka player and attach an error event listener
-        var video = document.getElementById("video");
-        window.shakaPlayerInstance = new shaka.Player(video);
-        window.shakaPlayerInstance.addEventListener("error", onErrorEvent);
-
-        // configure the DRM license servers
-        var playReadyLaURL = "https://playready-license.drm.technology/rightsmanager.asmx?token=" + encodeURIComponent(vudrmToken)
-        window.shakaPlayerInstance.configure({
-            drm: {
-                servers: {
-                    "com.widevine.alpha": "https://widevine-proxy.drm.technology/proxy",
-                    "com.microsoft.playready": playReadyLaURL
-                }
-            }
-        });
-
-        // Something special is needed for the widevine license request.
-        window.shakaPlayerInstance.getNetworkingEngine().registerRequestFilter(function (type, request) {
-            
-            // ignore requests that are not license requests.
-            if (type != shaka.net.NetworkingEngine.RequestType.LICENSE) return;
-
-            // get the selected drm info and check the key system is widevine.
-            var selectedDrmInfo = window.shakaPlayerInstance.drmInfo();
-            if (selectedDrmInfo.keySystem !== "com.widevine.alpha") {
-                return;
-            }
-
-            // select the first key id and convert to uppercase as it is hex.
-            var keyId = selectedDrmInfo.keyIds[0].toUpperCase();
-
-            // create the license request body required by the license server
-            var body = {
-                "token": vudrmToken,
-                "drm_info": Array.apply(null, new Uint8Array(request.body)),
-                "kid": keyId
-            };
-            body = JSON.stringify(body);
-
-            // set the request body
-            request.body = body;
-
-            // add the content type header
-            request.headers["Content-Type"] = "application/json";
-        });
-
-        // load the mpeg-dash stream into the shaka player
-        window.shakaPlayerInstance.load(mpegdashStreamUrl).then(function () {
-            console.log("The stream has now been loaded!");
-        }).catch(onError);
-
+        // Everything looks good!
+        initPlayer();
     } else {
-        console.error("This browser does not have the minimum set of APIs needed for shaka!");
+        // This browser does not have the minimum set of APIs we need.
+        console.error("Browser not supported!");
     }
-})();
+}
+
+function initPlayer() {
+    // Create a Player instance.
+    var videoEl = document.getElementById("video");
+    var player = new shaka.Player(videoEl);
+
+    // Attach player to the window to make it easy to access in the JS console.
+    window.videoEl = videoEl;
+    window.player = player;
+
+    // Listen for error events.
+    player.addEventListener("error", onErrorEvent);
+    videoEl.addEventListener("canplay", onCanPlayEvent);
+
+    // Try to load a manifest.
+    // This is an asynchronous process.
+    player
+        .load(manifestUri)
+        .then(function() {
+            // This runs if the asynchronous load is successful.
+            console.log("The video has now been loaded!");
+        })
+        .catch(onError); // onError is executed if the asynchronous load fails.
+}
 
 function onErrorEvent(event) {
     // Extract the shaka.util.Error object from the event.
@@ -71,5 +47,72 @@ function onErrorEvent(event) {
 }
 
 function onError(error) {
+    // Log the error.
     console.error("Error code", error.code, "object", error);
 }
+
+function onCanPlayEvent(event) {
+    videoEl.addEventListener("timeupdate", onTimeUpdateEvent);
+}
+
+function onTimeUpdateEvent(event) {
+    var utcISO = document.getElementById("utc-iso");
+    var elapsedSeconds = document.getElementById("elapsed-seconds");
+
+    var currentlyElapsed = video.currentTime;
+    console.log("Current elapsed", currentlyElapsed);
+    elapsedSeconds.innerHTML = currentlyElapsed;
+
+    var currentUTC = getCurrentUTC();
+    if (!!currentUTC) {
+        console.log("Current UTC", getCurrentUTC());
+        utcISO.innerHTML = new Date(currentUTC).toJSON();
+    }
+}
+
+function getCurrentUTC() {
+    var programStart = getStartTimeOffset() * 1000;
+    var currentPlayheadAsDate = player.getPlayheadTimeAsDate();
+    if (!currentPlayheadAsDate) {
+        return;
+    }
+    var currentTime = currentPlayheadAsDate.getTime();
+
+    var playHeadDate = new Date(programStart + currentTime);
+    return playHeadDate;
+}
+
+function getStartTimeOffset() {
+    var currentVariant = player.getVariantTracks().find(function(variantTrack) {
+        return variantTrack.active;
+    });
+
+    if (!currentVariant) {
+        return;
+    }
+
+    var periods = player.getManifest().periods;
+    if (!periods.length) {
+        return;
+    }
+
+    var variants = periods[0].variants;
+    if (!variants.length) {
+        return;
+    }
+
+    var currentPariodeVariant = variants.find(function(periodeVariant) {
+        return currentVariant.id === periodeVariant.id;
+    });
+
+    if (
+        !currentPariodeVariant.video ||
+        isNaN(currentPariodeVariant.video.presentationTimeOffset)
+    ) {
+        return;
+    }
+
+    return currentPariodeVariant.video.presentationTimeOffset;
+}
+
+document.addEventListener("DOMContentLoaded", initApp);
