@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
     var shakaPlayerUrls = {
-        debug: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.3/shaka-player.compiled.debug.js",
-        production: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.1.3/shaka-player.compiled.js"
+        debug: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.6/shaka-player.compiled.debug.js",
+        production: "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.6/shaka-player.compiled.js"
     };
 
     grunt.initConfig({
