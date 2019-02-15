@@ -1,5 +1,7 @@
 ﻿# vuplay shaka
 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 ## Description
 
 This repo will demonstrate how to use [vudrm](http://vudrm.vualto.com/) with Google's [Shaka Player](https://shaka-player-demo.appspot.com/docs/api/tutorial-welcome.html).
@@ -43,35 +45,35 @@ For a complete breakdown of supported media extensions please contact support@vu
 
 ### vudrm
 
-- [Contact vualto](http://www.vualto.com/contact-us/)
-- [vudrm](http://vudrm.vualto.com/)
-- [vudrm token documentation](https://docs.vualto.com/projects/vudrm/en/latest/VUDRM-token.html)
+-   [Contact vualto](http://www.vualto.com/contact-us/)
+-   [vudrm](http://vudrm.vualto.com/)
+-   [vudrm token documentation](https://docs.vualto.com/projects/vudrm/en/latest/VUDRM-token.html)
 
 ### mpeg-DASH
 
-- [MPEG-DASH](https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP)
-- [What is MPEG-DASH](http://www.streamingmedia.com/Articles/Editorial/What-Is-.../What-is-MPEG-DASH-79041.aspx)
-- [Widevine](http://www.widevine.com/)
-- [PlayReady](https://www.microsoft.com/playready/)
+-   [MPEG-DASH](https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP)
+-   [What is MPEG-DASH](http://www.streamingmedia.com/Articles/Editorial/What-Is-.../What-is-MPEG-DASH-79041.aspx)
+-   [Widevine](http://www.widevine.com/)
+-   [PlayReady](https://www.microsoft.com/playready/)
 
 ### HLS
 
-- [Apple's introduction to HLS](https://developer.apple.com/streaming/)
-- [Fairplay](https://developer.apple.com/streaming/fps/)
+-   [Apple's introduction to HLS](https://developer.apple.com/streaming/)
+-   [Fairplay](https://developer.apple.com/streaming/fps/)
 
 ### Encrpyted media extensions
 
-- [Encrypted media extensions specification](https://www.w3.org/TR/2016/CR-encrypted-media-20160705/)
-- [Encrypted media extensions wikipedia](https://en.wikipedia.org/wiki/Encrypted_Media_Extensions)
-- [Encrypted media extensions on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-- [Intro to encrypted media extensions](https://www.html5rocks.com/en/tutorials/eme/basics/)
+-   [Encrypted media extensions specification](https://www.w3.org/TR/2016/CR-encrypted-media-20160705/)
+-   [Encrypted media extensions wikipedia](https://en.wikipedia.org/wiki/Encrypted_Media_Extensions)
+-   [Encrypted media extensions on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+-   [Intro to encrypted media extensions](https://www.html5rocks.com/en/tutorials/eme/basics/)
 
 ### Shaka
 
-- [Welcome to shaka](https://shaka-player-demo.appspot.com/docs/api/tutorial-welcome.html)
-- [Shaka github page](https://github.com/google/shaka-player)
+-   [Welcome to shaka](https://shaka-player-demo.appspot.com/docs/api/tutorial-welcome.html)
+-   [Shaka github page](https://github.com/google/shaka-player)
 
 ### Build tools
 
-- [npm](https://www.npmjs.com/)
-- [grunt](http://gruntjs.com/)
+-   [npm](https://www.npmjs.com/)
+-   [grunt](http://gruntjs.com/)

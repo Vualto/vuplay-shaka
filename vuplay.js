@@ -1,5 +1,4 @@
-(function () {
-
+(function() {
     // Set your mpeg dash stream url
     var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
 
@@ -15,53 +14,62 @@
         window.shakaPlayerInstance.addEventListener("error", onErrorEvent);
 
         // configure the DRM license servers
-        var playReadyLaURL = "https://playready-license.drm.technology/rightsmanager.asmx?token=" + encodeURIComponent(vudrmToken)
+        var playReadyLaURL =
+            "https://playready-license.drm.technology/rightsmanager.asmx?token=" +
+            encodeURIComponent(vudrmToken);
         window.shakaPlayerInstance.configure({
             drm: {
                 servers: {
-                    "com.widevine.alpha": "https://widevine-proxy.drm.technology/proxy",
+                    "com.widevine.alpha":
+                        "https://widevine-proxy.drm.technology/proxy",
                     "com.microsoft.playready": playReadyLaURL
                 }
             }
         });
 
         // Something special is needed for the widevine license request.
-        window.shakaPlayerInstance.getNetworkingEngine().registerRequestFilter(function (type, request) {
-            
-            // ignore requests that are not license requests.
-            if (type != shaka.net.NetworkingEngine.RequestType.LICENSE) return;
+        window.shakaPlayerInstance
+            .getNetworkingEngine()
+            .registerRequestFilter(function(type, request) {
+                // ignore requests that are not license requests.
+                if (type != shaka.net.NetworkingEngine.RequestType.LICENSE)
+                    return;
 
-            // get the selected drm info and check the key system is widevine.
-            var selectedDrmInfo = window.shakaPlayerInstance.drmInfo();
-            if (selectedDrmInfo.keySystem !== "com.widevine.alpha") {
-                return;
-            }
+                // get the selected drm info and check the key system is widevine.
+                var selectedDrmInfo = window.shakaPlayerInstance.drmInfo();
+                if (selectedDrmInfo.keySystem !== "com.widevine.alpha") {
+                    return;
+                }
 
-            // select the first key id and convert to uppercase as it is hex.
-            var keyId = selectedDrmInfo.keyIds[0].toUpperCase();
+                // select the first key id and convert to uppercase as it is hex.
+                var keyId = selectedDrmInfo.keyIds[0].toUpperCase();
 
-            // create the license request body required by the license server
-            var body = {
-                "token": vudrmToken,
-                "drm_info": Array.apply(null, new Uint8Array(request.body)),
-                "kid": keyId
-            };
-            body = JSON.stringify(body);
+                // create the license request body required by the license server
+                var body = {
+                    token: vudrmToken,
+                    drm_info: Array.apply(null, new Uint8Array(request.body)),
+                    kid: keyId
+                };
+                body = JSON.stringify(body);
 
-            // set the request body
-            request.body = body;
+                // set the request body
+                request.body = body;
 
-            // add the content type header
-            request.headers["Content-Type"] = "application/json";
-        });
+                // add the content type header
+                request.headers["Content-Type"] = "application/json";
+            });
 
         // load the mpeg-dash stream into the shaka player
-        window.shakaPlayerInstance.load(mpegdashStreamUrl).then(function () {
-            console.log("The stream has now been loaded!");
-        }).catch(onError);
-
+        window.shakaPlayerInstance
+            .load(mpegdashStreamUrl)
+            .then(function() {
+                console.log("The stream has now been loaded!");
+            })
+            .catch(onError);
     } else {
-        console.error("This browser does not have the minimum set of APIs needed for shaka!");
+        console.error(
+            "This browser does not have the minimum set of APIs needed for shaka!"
+        );
     }
 })();
 
