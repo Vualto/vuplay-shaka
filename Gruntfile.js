@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     var shakaPlayerUrls = {
         debug:
             "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.6/shaka-player.compiled.debug.js",
