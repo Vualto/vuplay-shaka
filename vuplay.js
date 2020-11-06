@@ -1,9 +1,9 @@
 (function() {
     // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "https://tnfba-test-stream-dvr-od.telenorcdn.net/catchup/cdgo_bbc_brit_nordic_live/clear/manifest.isml/.mpd?t=2020-11-04T04:04:00-2020-11-04T05:03:00";
+    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
 
     // Please login to https://admin.drm.technology to generate a vudrm token.
-    var vudrmToken = "vualto-demo|2020-11-06T15:38:56Z|RAQrLiTYv+Z8U9LrxO0JDw==|5e3712c0f9efb600a27d2b2fec51eba34551c0cf";
+    var vudrmToken = "<vudrm-token>";
 
     // Set polyfills required by shaka
     shaka.polyfill.installAll();
