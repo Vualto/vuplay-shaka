@@ -27,6 +27,20 @@
             }
         });
 
+        // Increase the size of the gaps that Shaka Player will automatically jump:
+        // window.shakaPlayerInstance.configure({
+        //     streaming: {
+        //         smallGapLimit: 2.0,
+        //     },
+        // });
+
+        // Alternately, instruct Shaka Player to jump all gaps automatically:
+        // window.shakaPlayerInstance.configure({
+        //     streaming: {
+        //         jumpLargeGaps: true, 
+        //     },
+        // });
+
         // Something special is needed for the widevine license request.
         window.shakaPlayerInstance
             .getNetworkingEngine()
