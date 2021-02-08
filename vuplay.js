@@ -21,8 +21,7 @@
             drm: {
                 servers: {
                     "com.widevine.alpha":
-                        "https://widevine-proxy.drm.technology/proxy",
-                    "com.microsoft.playready": playReadyLaURL
+                        "https://widevine-proxy.drm.technology/proxy"
                 }
             }
         });
