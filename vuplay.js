@@ -1,9 +1,12 @@
 (function() {
     // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
+    var mpegdashStreamUrl = "https://d1chyo78gdexn4.cloudfront.net/vualto-demo/tomorrowland2015/tomorrowland2015.ism/manifest.mpd";
+
+    // Set your HLS stream url
+    var hlsStreamUrl = "<hls-strem-url>";
 
     // Please login to https://admin.drm.technology to generate a vudrm token.
-    var vudrmToken = "<vudrm-token>";
+    var vudrmToken = "vualto-demo|2021-02-09T10:56:05Z|RAQrLiTYv+Z8U9LrxO0JDw==|131845380e18b1ab3563566b886745ea0dc42d12";
 
     // Set polyfills required by shaka
     shaka.polyfill.installAll();
@@ -14,15 +17,11 @@
         window.shakaPlayerInstance.addEventListener("error", onErrorEvent);
 
         // configure the DRM license servers
-        var playReadyLaURL =
-            "https://playready-license.drm.technology/rightsmanager.asmx?token=" +
-            encodeURIComponent(vudrmToken);
         window.shakaPlayerInstance.configure({
             drm: {
                 servers: {
-                    "com.widevine.alpha":
-                        "https://widevine-proxy.drm.technology/proxy",
-                    "com.microsoft.playready": playReadyLaURL
+                    "com.widevine.alpha": "https://widevine-license.vudrm.tech/proxy",
+                    "com.microsoft.playready": "https://playready-license.vudrm.tech/rightsmanager.asmx"
                 }
             }
         });
@@ -35,28 +34,10 @@
                 if (type != shaka.net.NetworkingEngine.RequestType.LICENSE)
                     return;
 
-                // get the selected drm info and check the key system is widevine.
-                var selectedDrmInfo = window.shakaPlayerInstance.drmInfo();
-                if (selectedDrmInfo.keySystem !== "com.widevine.alpha") {
-                    return;
-                }
+                // set the VUDRM token as a header on the license request
+                request.headers["X-VUDRM-TOKEN"] = vudrmToken;
 
-                // select the first key id and convert to uppercase as it is hex.
-                var keyId = selectedDrmInfo.keyIds[0].toUpperCase();
-
-                // create the license request body required by the license server
-                var body = {
-                    token: vudrmToken,
-                    drm_info: Array.apply(null, new Uint8Array(request.body)),
-                    kid: keyId
-                };
-                body = JSON.stringify(body);
-
-                // set the request body
-                request.body = body;
-
-                // add the content type header
-                request.headers["Content-Type"] = "application/json";
+                //TODO fairplay
             });
 
         // load the mpeg-dash stream into the shaka player
