@@ -1,12 +1,12 @@
 (function() {
     // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "https://d1chyo78gdexn4.cloudfront.net/vualto-demo/tomorrowland2015/tomorrowland2015.ism/manifest.mpd";
+    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
 
     // Set your HLS stream url
     var hlsStreamUrl = "<hls-strem-url>";
 
     // Please login to https://admin.drm.technology to generate a vudrm token.
-    var vudrmToken = "vualto-demo|2021-02-09T10:56:05Z|RAQrLiTYv+Z8U9LrxO0JDw==|131845380e18b1ab3563566b886745ea0dc42d12";
+    var vudrmToken = "<vudrm-token>";
 
     // Set polyfills required by shaka
     shaka.polyfill.installAll();
