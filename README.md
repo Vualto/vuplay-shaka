@@ -7,7 +7,7 @@
 This repo will demonstrate how to use [vudrm](http://vudrm.vualto.com/) with Google's [Shaka Player](https://shaka-player-demo.appspot.com/docs/api/tutorial-welcome.html).
 If you have any questions please contact support@vualto.com
 
-This repo is currently targeted at [version 2.5.11](https://github.com/google/shaka-player/releases/tag/v2.5.11) of the shaka player.
+This repo is currently targeted at [version 3.0.8](https://github.com/google/shaka-player/releases/tag/v3.0.8) of the shaka player.
 
 ## Instructions
 
