@@ -49,7 +49,7 @@ For a complete breakdown of supported media extensions please contact <support@j
 ### Studio DRM
 
 -   [Contact JW Player](https://support.jwplayer.com/)
-#### !!!!TODO!!!!: Change the below to the JW Studio DRM docs
+#### TODO: Change the below to the JW Studio DRM docs
 -   [Studio DRM](https://jw-studio-drm-docs)
 -   [Studio DRM token documentation](https://jw-studio-drm-token-docs)
 
