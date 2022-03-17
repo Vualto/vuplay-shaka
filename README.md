@@ -4,7 +4,7 @@
 
 ## Description
 
-#### TODO: Change the below to the JW Studio DRM docs 
+#### TODO: Change the below to the JW Studio DRM docs - https://jwplayer.atlassian.net/browse/CP-26
 This repo will demonstrate how to use [Studio DRM](https://jw-studio-drm-docs) with Google's [Shaka Player](https://shaka-player-demo.appspot.com/docs/api/tutorial-welcome.html).
 If you have any questions please contact <support@jwplayer.com>
 
@@ -16,7 +16,7 @@ This repo is currently targeted at [version 3.3.2](https://github.com/shaka-proj
 
 1. Install [npm](https://www.npmjs.com/)
 2. Install the [grunt-cli](https://www.npmjs.com/package/grunt-cli): `npm install -g grunt-cli`
-#### TODO: Change the below (no.3) to the JW GitHub repo structure name
+#### TODO: Change the below (no.3) to the JW GitHub repo structure name - https://jwplayer.atlassian.net/browse/CP-26
 3. Clone the repo: `git clone git@github.com:Vualto/vuplay-shaka.git`
 4. Navigate to the project's root folder: `cd studiodrm-shaka`
 5. Install the dependencies: `npm install`
@@ -25,7 +25,7 @@ This repo is currently targeted at [version 3.3.2](https://github.com/shaka-proj
 
 1. Open the repo in your favourite javascript editor.
 2. In the file `studiodrm.js` replace `<mpeg-dash-stream-url>` with your [MPEG-DASH](https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP) stream url.
-#### TODO: Change the below (no.3) to the JW Studio DRM docs
+#### TODO: Change the below (no.3) to the JW Studio DRM docs - https://jwplayer.atlassian.net/browse/CP-26
 3. In the file `studiodrm.js` replace `<your-studiodrm-token>` with a Studio DRM token from [https://jw-studio-drm-token-docs](studiodrm-token-docs)
 
 ### Build and run the code
@@ -49,7 +49,7 @@ For a complete breakdown of supported media extensions please contact <support@j
 ### Studio DRM
 
 -   [Contact JW Player](https://support.jwplayer.com/)
-#### TODO: Change the below to the JW Studio DRM docs
+#### TODO: Change the below to the JW Studio DRM docs - https://jwplayer.atlassian.net/browse/CP-26
 -   [Studio DRM](https://jw-studio-drm-docs)
 -   [Studio DRM token documentation](https://jw-studio-drm-token-docs)
 

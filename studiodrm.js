@@ -1,6 +1,6 @@
 (function () {
     // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
+    var mpegdashStreamUrl = "https://d1chyo78gdexn4.cloudfront.net/vualto-demo/sintel/sintel.ism/manifest.mpd";
 
     // Set your HLS stream url
     var hlsStreamUrl = "<hls-stream-url>";
@@ -12,8 +12,8 @@
     var fairplayLicenseServerUrl = "https://fairplay-license.vudrm.tech/license";
 
     // TODO: Change the below to the JW Studio DRM docs 
-    // Please login to https://admin.vudrm.tech to generate a StudioDRM token.
-    var studioDrmToken = "<your-studiodrm-token>";
+    // Please login to https://admin.vudrm.tech to generate a Studio DRM token.
+    var studioDrmToken = "vualto-demo|2022-03-14T15:51:04Z|RAQrLiTYv+Z8U9LrxO0JDw==|2aae937c85f75e6a941c336d6bb10e94456474f0";
 
     // A bit of hacky way to detect Safari but will do for demo purposes...
     var isSafari = (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1);
