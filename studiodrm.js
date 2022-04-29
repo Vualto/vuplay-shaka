@@ -11,9 +11,8 @@
     // Will get overridden with the one from the manifest but we have to set something otherwise shaka will complain!
     var fairplayLicenseServerUrl = "https://fairplay-license.vudrm.tech/license";
 
-    // TODO: Change the below to the JW Studio DRM docs - https://jwplayer.atlassian.net/browse/CP-26
-    // Please login to https://admin.vudrm.tech to generate a Studio DRM token.
-    var studioDrmToken = "vualto-demo|2022-03-14T15:51:04Z|RAQrLiTYv+Z8U9LrxO0JDw==|2aae937c85f75e6a941c336d6bb10e94456474f0";
+    // Please refer to the following documentation for guidance on generating a Studio DRM token: https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-v2
+    var studioDrmToken = "<your-studiodrm-token>";
 
     // A bit of hacky way to detect Safari but will do for demo purposes...
     var isSafari = (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1);
@@ -93,7 +92,6 @@
                 if (type != shaka.net.NetworkingEngine.RequestType.LICENSE)
                     return;
 
-                // TODO: Change line 98 with the new header name... X-STUDIODRM-TOKEN? - https://jwplayer.atlassian.net/browse/CP-26
                 // set the Studio DRM token as a header on the license request
                 request.headers["X-VUDRM-TOKEN"] = studioDrmToken;
 
