@@ -23,7 +23,7 @@ This repo is currently targeted at [version 3.3.2](https://github.com/shaka-proj
 
 1. Open the repo in your favourite javascript editor.
 2. In the file `studiodrm.js` replace `<mpeg-dash-stream-url>` with your [MPEG-DASH](https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP) stream url.
-3. In the file `studiodrm.js` replace `<your-studiodrm-token>` with a Studio DRM token. Details can be found in the [https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-v2](Studio DRM Token v2 documentation)
+3. In the file `studiodrm.js` replace `<your-studiodrm-token>` with a Studio DRM token. Details can be found in the [Studio DRM Token v2 documentation](https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-v2)
 
 ### Build and run the code
 
