@@ -2,10 +2,18 @@
 <html>
     <head>
         <title>Demo StudioDRM with Shaka</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.4/shaka-player.ui.min.js"></script>
+        <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.4/controls.min.css">
+        <script src="studiodrm.js"></script>
     </head>
     <body>
-        <video id="video" width="640" controls autoplay></video>
-        <script src="{shaka}"></script>
-        <script src="{studiodrmjs}"></script>
+        <div data-shaka-player-container style="max-width:40em"
+         data-shaka-player-cast-receiver-id="BBED8D28">
+        <!-- The data-shaka-player tag will make the UI library use this video element.
+            If no video is provided, the UI will automatically make one inside the container div. -->
+        <video autoplay data-shaka-player id="video" style="width:100%;height:100%"></video>
     </body>
+    <script>
+    </script>
 </html>
