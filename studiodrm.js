@@ -19,56 +19,6 @@ var studioDrmToken = "vualto-demo|2022-06-27T16:48:34Z|RAQrLiTYv+Z8U9LrxO0JDw==|
 // A bit of hacky way to detect Safari but will do for demo purposes...
 var isSafari = (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1);
 
-const CastService = function (stream, token) {
-    this._context;
-    this._laurl = 'https://widevine-license.vudrm.tech/proxy';
-    this._mimeType = 'application/dash+xm';
-    this._remotePlayer;
-    this._remotePlayerController;
-    this._stream = stream;
-    this._token = token;
-}
-
-CastService.prototype.initCast = function () {
-    this._context = cast.framework.CastContext.getInstance()
-    this._context.setOptions({
-        receiverApplicationId: '9BD166BB',
-        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-    });
-
-    this._remotePlayer = new cast.framework.RemotePlayer();
-    this._remotePlayerController = new cast.framework.RemotePlayerController(this._remotePlayer);
-    this._remotePlayerController.addEventListener(
-        cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED,
-        () => { this.connectionHandler(); },
-        false
-    );
-
-    //document.getElementById('play').addEventListener('click', this.play.bind(this));
-}
-
-CastService.prototype.connectionHandler = function () {
-    if (!this._remotePlayer.isConnected) return;
-    let mediaInfo = new chrome.cast.media.MediaInfo(this._stream, this._mimeType);
-
-    mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
-    mediaInfo.metadata.metadataType = chrome.cast.media.MetadataType.GENERIC;
-    mediaInfo.metadata.title = 'Vuplay Receiver Demo';
-    mediaInfo.customData = { laurl: this._laurl, token: this._token };
-
-    let request = new chrome.cast.media.LoadRequest(mediaInfo);
-    let session = this._context.getCurrentSession();
-    session.loadMedia(request);
-}
-
-CastService.prototype.play = function () {
-    
-    this._remotePlayerController.playOrPause();
-    // var player = new cast.framework.RemotePlayer();
-	// var playerController = new cast.framework.RemotePlayerController(player);
-	// playerController.playOrPause();
-}
-
 // Fetch the fairplay certificate used to generate the fairplay license request
 function getFairplayCertificate() {
     var certRequest = new XMLHttpRequest();
@@ -126,12 +76,103 @@ function getSafariPlayerConfig(fairplayCertificate) {
     }
 }
 
+const CastService = function (stream, token) {
+    this._context;
+    this._laurl = 'https://widevine-license.vudrm.tech/proxy';
+    this._mimeType = 'application/dash+xm';
+    this._remotePlayer;
+    this._remotePlayerController;
+    this._stream = stream;
+    this._token = token;
+}
+
+CastService.prototype.initCast = function () {
+    this._context = cast.framework.CastContext.getInstance()
+    this._context.setOptions({
+        receiverApplicationId: '9BD166BB',
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+    });
+
+    this._remotePlayer = new cast.framework.RemotePlayer();
+    this._remotePlayerController = new cast.framework.RemotePlayerController(this._remotePlayer);
+    this._remotePlayerController.addEventListener(
+        cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED,
+        () => { this.connectionHandler(); },
+        false
+    );
+
+    document.getElementById('play').addEventListener('click', this.play.bind(this));
+}
+
+CastService.prototype.connectionHandler = function () {
+    if (!this._remotePlayer.isConnected) return;
+    let mediaInfo = new chrome.cast.media.MediaInfo(this._stream, this._mimeType);
+
+    mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
+    mediaInfo.metadata.metadataType = chrome.cast.media.MetadataType.GENERIC;
+    mediaInfo.metadata.title = 'Vuplay Receiver Demo';
+    mediaInfo.customData = { laurl: this._laurl, token: this._token };
+
+    let request = new chrome.cast.media.LoadRequest(mediaInfo);
+    let session = this._context.getCurrentSession();
+    session.loadMedia(request);
+}
+
+CastService.prototype.play = function () {
+    
+    this._remotePlayerController.playOrPause();
+    // var player = new cast.framework.RemotePlayer();
+	// var playerController = new cast.framework.RemotePlayerController(player);
+	// playerController.playOrPause();
+}
+
+
+
+// Use shaka.ui.Element as a base class
+CastButton = class extends shaka.ui.Element {
+    constructor(parent, controls) {
+      super(parent, controls);
+  
+      // The actual button that will be displayed
+      this.button_ = document.createElement('button');
+      this.button_.textContent = 'DRMCast';
+      this.parent.appendChild(this.button_);
+
+      let castService;
+  
+      // Listen for clicks on the button to start the next playback
+      this.eventManager.listen(this.button_, 'click', () => {
+        castService = new CastService(mpegdashStreamUrl, studioDrmToken);
+        castService.initCast().bind(this);
+      });
+    }
+  };
+  
+  
+  // Factory that will create a button at run time.
+  CastButton.Factory = class {
+    create(rootElement, controls) {
+      return new CastButton(rootElement, controls);
+    }
+  };
+  
+  // Register our factory with the controls, so controls can create button instances.
+  shaka.ui.Controls.registerElement(
+    /* This name will serve as a reference to the button in the UI configuration object */ 'custom_cast',
+    new CastButton.Factory());
+
 async function init() {
     // When using the UI, the player is made automatically by the UI object.
     const video = document.getElementById('video');
     const ui = video['ui'];
+    const config = {
+        'controlPanelElements':  ['play_pause', 'custom_cast']
+    }
+    ui.configure(config);
     const controls = ui.getControls();
     const player = controls.getPlayer();
+
+
 
     // Attach player and ui to the window to make it easy to access in the JS console.
     window.player = player;
