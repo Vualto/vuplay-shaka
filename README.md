@@ -48,6 +48,7 @@ For a complete breakdown of supported media extensions please contact <support@j
 -   [Contact JW Player](https://support.jwplayer.com/)
 -   [Studio DRM](https://developer.jwplayer.com/jwplayer/docs/studio-drm-standalone-getting-started)
 -   [Studio DRM token documentation](https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-api-v2)
+-   [JW Player documentation on the configuration of DRM with Shaka Player](https://developer.jwplayer.com/jwplayer/docs/studio-drm-standalone-web-players#shaka)
 
 ### mpeg-DASH
 
