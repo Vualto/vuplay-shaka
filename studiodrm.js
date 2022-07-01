@@ -1,6 +1,6 @@
 (function () {
     // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "https://d1chyo78gdexn4.cloudfront.net/vualto-demo/sintel/sintel.ism/manifest.mpd";
+    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
 
     // Set your HLS stream url
     var hlsStreamUrl = "<hls-stream-url>";
@@ -11,7 +11,7 @@
     // Will get overridden with the one from the manifest but we have to set something otherwise shaka will complain!
     var fairplayLicenseServerUrl = "https://fairplay-license.vudrm.tech/license";
 
-    // Please refer to the following documentation for guidance on generating a Studio DRM token: https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-v2
+    // Please refer to the following documentation for guidance on generating a Studio DRM token: https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-api-v2
     var studioDrmToken = "<your-studiodrm-token>";
 
     // A bit of hacky way to detect Safari but will do for demo purposes...
