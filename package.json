@@ -1,7 +1,7 @@
 {
-    "name": "vuplay-shaka",
+    "name": "studiodrm-shaka",
     "version": "1.0.0",
-    "description": "A demo repo on how to use vudrm with Google's Shaka player.",
+    "description": "A demo repo on how to use Studio DRM with Google's Shaka player.",
     "main": "index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,17 +13,16 @@
         "url": "git+https://github.com/Vualto/vuplay-shaka.git"
     },
     "keywords": [
-        "vuplay",
-        "vudrm",
+        "jwplayer",
+        "studiodrm",
         "google",
         "shaka",
-        "vualto",
         "widevine",
         "playready",
         "mpeg-dash",
         "dash"
     ],
-    "author": "Robert Mitchell <robert.mitchell@vualto.com>",
+    "author": "Robert Mitchell <rmitchell@jwplayer.com>",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/Vualto/vuplay-shaka/issues"

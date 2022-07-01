@@ -11,8 +11,8 @@
     // Will get overridden with the one from the manifest but we have to set something otherwise shaka will complain!
     var fairplayLicenseServerUrl = "https://fairplay-license.vudrm.tech/license";
 
-    // Please login to https://admin.vudrm.tech to generate a vudrm token.
-    var vudrmToken = "<vudrm-token>";
+    // Please refer to the following documentation for guidance on generating a Studio DRM token: https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-api-v2
+    var studioDrmToken = "<your-studiodrm-token>";
 
     // A bit of hacky way to detect Safari but will do for demo purposes...
     var isSafari = (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1);
@@ -92,8 +92,8 @@
                 if (type != shaka.net.NetworkingEngine.RequestType.LICENSE)
                     return;
 
-                // set the VUDRM token as a header on the license request
-                request.headers["X-VUDRM-TOKEN"] = vudrmToken;
+                // set the Studio DRM token as a header on the license request
+                request.headers["X-VUDRM-TOKEN"] = studioDrmToken;
 
                 // custom fairplay license request body required
                 if (window.shakaPlayerInstance.drmInfo().keySystem == "com.apple.fps.1_0") {

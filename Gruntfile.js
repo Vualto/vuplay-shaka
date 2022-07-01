@@ -1,9 +1,9 @@
 module.exports = function (grunt) {
     var shakaPlayerUrls = {
         debug:
-            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.0.8/shaka-player.compiled.debug.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.2/shaka-player.compiled.debug.js",
         production:
-            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.0.8/shaka-player.compiled.js"
+            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.2/shaka-player.compiled.js"
     };
 
     grunt.initConfig({
@@ -23,15 +23,15 @@ module.exports = function (grunt) {
         concat: {
             options: {},
             dist: {
-                src: ["vuplay.js"],
-                dest: "dist/vuplay.js"
+                src: ["studiodrm.js"],
+                dest: "dist/studiodrm.js"
             }
         },
 
         uglify: {
             js: {
                 files: {
-                    "dist/vuplay.min.js": ["dist/vuplay.js"]
+                    "dist/studiodrm.min.js": ["dist/studiodrm.js"]
                 }
             }
         },
@@ -53,10 +53,10 @@ module.exports = function (grunt) {
                                 : shakaPlayerUrls.production
                         },
                         {
-                            pattern: "{vuplayjs}",
+                            pattern: "{studiodrmjs}",
                             replacement: grunt.option("debug")
-                                ? "vuplay.js"
-                                : "vuplay.min.js"
+                                ? "studiodrm.js" 
+                                : "studiodrm.min.js"
                         }
                     ]
                 }
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     protocol: "https",
-                    hostname: "shaka.vuplay.local.drm.technology",
+                    hostname: "shaka.studiodrm.local",
                     port: 14705,
                     base: "dist",
                     keepalive: true
