@@ -101,7 +101,7 @@ CastService.prototype.initCast = function () {
         false
     );
 
-    document.getElementById('play').addEventListener('click', this.play.bind(this));
+    //document.getElementById('play').addEventListener('click', this.play.bind(this));
 }
 
 CastService.prototype.connectionHandler = function () {
@@ -143,7 +143,7 @@ CastButton = class extends shaka.ui.Element {
       // Listen for clicks on the button to start the next playback
       this.eventManager.listen(this.button_, 'click', () => {
         castService = new CastService(mpegdashStreamUrl, studioDrmToken);
-        castService.initCast().bind(this);
+        castService.initCast();
       });
     }
   };

@@ -3,11 +3,12 @@
     <head>
         <title>Demo StudioDRM with Shaka</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.4/shaka-player.ui.debug.js"></script>
-        <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+        <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.4/controls.min.css">
         <script src="studiodrm.js"></script>
     </head>
     <body>
+        <google-cast-launcher></google-cast-launcher>
         <div data-shaka-player-container style="max-width:40em"
          data-shaka-player-cast-receiver-id="BBED8D28">
         <!-- The data-shaka-player tag will make the UI library use this video element.
