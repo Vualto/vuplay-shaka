@@ -1,9 +1,9 @@
 module.exports = function (grunt) {
     var shakaPlayerUrls = {
         debug:
-            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.2/shaka-player.compiled.debug.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.5.0/shaka-player.compiled.debug.js",
         production:
-            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.3.2/shaka-player.compiled.js"
+            "https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.5.0/shaka-player.compiled.js"
     };
 
     grunt.initConfig({
@@ -28,14 +28,6 @@ module.exports = function (grunt) {
             }
         },
 
-        uglify: {
-            js: {
-                files: {
-                    "dist/studiodrm.min.js": ["dist/studiodrm.js"]
-                }
-            }
-        },
-
         "string-replace": {
             dist: {
                 files: [
@@ -54,9 +46,7 @@ module.exports = function (grunt) {
                         },
                         {
                             pattern: "{studiodrmjs}",
-                            replacement: grunt.option("debug")
-                                ? "studiodrm.js" 
-                                : "studiodrm.min.js"
+                            replacement: "studiodrm.js"
                         }
                     ]
                 }
@@ -79,7 +69,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-concat");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-string-replace");
     grunt.loadNpmTasks("grunt-contrib-connect");
 
@@ -87,7 +76,6 @@ module.exports = function (grunt) {
         "clean",
         "copy",
         "concat",
-        "uglify",
         "string-replace"
     ]);
     grunt.registerTask("serve", ["build", "connect"]);
