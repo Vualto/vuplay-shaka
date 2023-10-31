@@ -1,15 +1,18 @@
 (function () {
     // Set your mpeg dash stream url
-    var mpegdashStreamUrl = "https://d1chyo78gdexn4.cloudfront.net/vualto-demo/vuworkflow/content/vod/jw_prd_xdzmqoww/jw_prd_xdzmqoww_drm_1611503b-805c-4a97-b2d3-d83a287a17a7.ism/manifest.mpd";
+    var mpegdashStreamUrl = "<mpeg-dash-stream-url>";
 
     // Set your HLS stream url
-    var hlsStreamUrl = "https://d1chyo78gdexn4.cloudfront.net/vualto-demo/vuworkflow/content/vod/jw_prd_xdzmqoww/jw_prd_xdzmqoww_drm_1611503b-805c-4a97-b2d3-d83a287a17a7.ism/manifest.m3u8";
+    var hlsStreamUrl = "<hls-stream-url>";
+
+    // Please refer to the following documentation for guidance on generating a Studio DRM token: https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-api-v2
+    var studioDrmToken = "<studiodrm-token>";
 
     // Set your fairplay certificate url
-    var fairplayCertificateUrl = "https://resources.vudrm.tech/clients/jw_prd_xdzmqoww/jw_prd_xdzmqoww.der";
+    var fairplayCertificateUrl = "<fairplay-certificate-url>";
 
     // Will get overridden with the one from the manifest
-    var fairplayLicenseServerUrl = "https://fairplay-license.vudrm.tech/license";
+    var fairplayLicenseServerUrl = "https://fairplay-license.vudrm.tech/v2/license";
 
     // A bit of hacky way to detect Safari but will do for demo purposes...
     var isSafari = (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1);
@@ -20,12 +23,12 @@
         window.shakaPlayerInstance = new shaka.Player(video);
         window.shakaPlayerInstance.addEventListener("error", onErrorEvent);
 
-        // configure the DRM license servers
+        // configure the DRM
         window.shakaPlayerInstance.configure({
             drm: {
                 servers: {
-                    "com.widevine.alpha": "https://widevine-license.eu-west-2.vudrm.tech/proxy",
-                    "com.microsoft.playready": "https://playready-license.eu-west-2.vudrm.tech/rightsmanager.asmx",
+                    "com.widevine.alpha": "https://widevine-license.vudrm.tech/proxy",
+                    "com.microsoft.playready": "https://playready-license.vudrm.tech/rightsmanager.asmx",
                     // Will get overridden with the one from the manifest but we have to set something otherwise shaka will complain!
                     "com.apple.fps.1_0": fairplayLicenseServerUrl
                 },
@@ -50,13 +53,18 @@
             }
         });
 
-        // set the Fairplay content type header and set the fairplay license server url extracted from the manifest
         window.shakaPlayerInstance
             .getNetworkingEngine()
             .registerRequestFilter(function (type, request) {
                 // ignore requests that are not license requests.
-                if (type == shaka.net.NetworkingEngine.RequestType.LICENSE 
-                    && window.shakaPlayerInstance.drmInfo().keySystem == "com.apple.fps.1_0") {
+                if (type != shaka.net.NetworkingEngine.RequestType.LICENSE)
+                    return;
+
+                // set the Studio DRM token as a header on the license request
+                request.headers["X-VUDRM-TOKEN"] = studioDrmToken;
+
+                // Set the correct content type header and the Fairplay License Server URL from the manifest
+                if (window.shakaPlayerInstance.drmInfo().keySystem == "com.apple.fps.1_0") {
                         request.headers["Content-Type"] = "ArrayBuffer"
                         request.uris = [fairplayLicenseServerUrl];
                     }
