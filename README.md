@@ -7,7 +7,7 @@
 This repo will demonstrate how to use [Studio DRM](https://developer.jwplayer.com/jwplayer/docs/studio-drm-standalone-getting-started) with Google's [Shaka Player](https://shaka-player-demo.appspot.com/docs/api/tutorial-welcome.html).
 If you have any questions please contact <support@jwplayer.com>
 
-This repo is currently targeted at [version 3.3.2](https://github.com/shaka-project/shaka-player/releases/tag/v3.3.2) of the shaka player.
+This repo is currently targeted at [version 4.5.0](https://github.com/shaka-project/shaka-player/releases/tag/v4.5.0) of the shaka player.
 
 ## Instructions
 
@@ -23,7 +23,9 @@ This repo is currently targeted at [version 3.3.2](https://github.com/shaka-proj
 
 1. Open the repo in your favourite javascript editor.
 2. In the file `studiodrm.js` replace `<mpeg-dash-stream-url>` with your [MPEG-DASH](https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP) stream url.
-3. In the file `studiodrm.js` replace `<your-studiodrm-token>` with a Studio DRM token. Details can be found in the [Studio DRM Token v2 documentation](https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-api-v2)
+3. In the file `studiodrm.js` replace `<hls-stream-url>` with your [HLS](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) stream url.
+4. In the file `studiodrm.js` replace `<studiodrm-token>` with a Studio DRM token. Details can be found in the [Studio DRM Token v2 documentation](https://developer.jwplayer.com/jwplayer/docs/studio-drm-token-api-v2)
+5. In the file `studiodrm.js` replace `<fairplay-certificate-url>` with the link to your Fairplay certifcate.
 
 ### Build and run the code
 
@@ -34,6 +36,8 @@ This repo contains a development node.js server. This server is not suitable for
 3. Load a supported browser and go to `https://shaka.studiodrm.local:14703`
 
 In order to allow DRM encrypted playback in chrome (https://goo.gl/EEhZqT), SSL has been enabled for the demo. You will get a warning about an invalid cert `NET::ERR_CERT_AUTHORITY_INVALID` but this can safely be ignored.
+
+NB: If you wish to use the uncompiled version of shaka run `grunt serve --debug`
 
 ### Browser support
 
